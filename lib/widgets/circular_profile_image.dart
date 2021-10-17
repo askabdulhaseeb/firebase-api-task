@@ -18,7 +18,9 @@ class CircularProfileImage extends StatelessWidget {
         child: CircleAvatar(
           radius: radious - 8,
           backgroundColor: Theme.of(context).primaryColor,
-          backgroundImage: NetworkImage(imageURL),
+          backgroundImage: (imageURL.isEmpty)
+              ? const AssetImage('images/default_user.png')
+              : NetworkImage(imageURL) as ImageProvider,
         ),
       ),
     );
