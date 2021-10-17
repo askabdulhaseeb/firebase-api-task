@@ -1,9 +1,18 @@
 import 'package:firebase_api_task/screens/auth/login_screen.dart';
 import 'package:firebase_api_task/screens/auth/signup_screen.dart';
 import 'package:firebase_api_task/screens/home_screen/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
+  // UserLocalData.init();
+  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 

@@ -24,7 +24,6 @@ class _SignupScreenState extends State<SignupScreen> {
     File? _pickedImage;
 
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
