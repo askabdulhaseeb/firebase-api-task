@@ -1,4 +1,5 @@
 import 'package:firebase_api_task/models/news.dart';
+import 'package:firebase_api_task/screens/news_detail_screen/news_detail_screen.dart';
 import 'package:firebase_api_task/utilities/utilities.dart';
 import 'package:firebase_api_task/widgets/circular_profile_image.dart';
 import 'package:flutter/material.dart';
@@ -7,25 +8,33 @@ class NewsCardWidget extends StatelessWidget {
   const NewsCardWidget({required Article article, Key? key})
       : _article = article,
         super(key: key);
-
   final Article _article;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      child: Padding(
-        padding: EdgeInsets.all(Utilities.padding / 2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _header(),
-            const SizedBox(height: 10),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Utilities.padding / 2),
-              child: Text(_article.description!),
-            ),
-          ],
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute<NewsDetailScreen>(
+          builder: (BuildContext context) =>
+              NewsDetailScreen(article: _article),
+        ),
+      ),
+      child: Card(
+        elevation: 3,
+        child: Padding(
+          padding: EdgeInsets.all(Utilities.padding / 2),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _header(),
+              const SizedBox(height: 10),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: Utilities.padding / 2),
+                child: Text(_article.content!),
+              ),
+            ],
+          ),
         ),
       ),
     );
