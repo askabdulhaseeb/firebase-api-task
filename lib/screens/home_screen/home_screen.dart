@@ -1,13 +1,63 @@
+import 'package:firebase_api_task/apis/news_api.dart';
+import 'package:firebase_api_task/models/news.dart';
 import 'package:flutter/material.dart';
+import 'news_card_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
   static const String routeName = '/HomeScreen';
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Home Screen'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('News'),
+      ),
+      body: FutureBuilder<News?>(
+        future: NewsAPI().getNews(),
+        builder: (BuildContext context, AsyncSnapshot<News?> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return _issueWidget();
+            case ConnectionState.waiting:
+              return _loadingWidget();
+            case ConnectionState.active:
+              return _loadingWidget();
+            case ConnectionState.done:
+              final News? _news = snapshot.data;
+              return _news == null
+                  ? _issueWidget()
+                  : ListView.builder(
+                      itemCount: _news.articles!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return NewsCardWidget(article: _news.articles![index]);
+                      },
+                    );
+          }
+        },
+      ),
+    );
+  }
+
+  Center _loadingWidget() {
+    return const Center(
+      child: SizedBox(
+        height: 30,
+        width: 30,
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Center _issueWidget() {
+    return const Center(
+      child: Text(
+        'Issue!!!',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
       ),
     );
   }
