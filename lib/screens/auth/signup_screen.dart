@@ -1,10 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../models/app_user.dart';
+import '../../database/aith_methods.dart';
+import '../../database/user_api.dart';
 import '../../utilities/custom_validator.dart';
 import '../../utilities/utilities.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textformfield.dart';
 import '../../widgets/password_textformfield.dart';
+import '../../widgets/show_loading.dart';
+import '../../widgets/custom_toast.dart';
+import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -51,9 +59,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           radius: 60,
                           backgroundColor: Theme.of(context).primaryColor,
                           backgroundImage: _pickedImage != null
-                              ? FileImage(_pickedImage)
-                              : const AssetImage('images/default_user.png')
-                                  as ImageProvider,
+                              ? Image.file(File(_pickedImage.path))
+                                  as ImageProvider
+                              : const AssetImage('images/default_user.png'),
                         ),
                       ),
                     ),
@@ -62,7 +70,15 @@ class _SignupScreenState extends State<SignupScreen> {
                       right: -6,
                       child: IconButton(
                         tooltip: 'Edit Image',
-                        onPressed: () {},
+                        onPressed: () async {
+                          final ImagePicker picker = ImagePicker();
+                          final XFile? pickedImage = await picker.pickImage(
+                            source: ImageSource.gallery,
+                          );
+                          final File pickedImageFile = File(pickedImage!.path);
+                          _pickedImage = pickedImageFile;
+                          setState(() {});
+                        },
                         icon: Icon(
                           Icons.edit,
                           size: 40,
@@ -92,7 +108,45 @@ class _SignupScreenState extends State<SignupScreen> {
                   title: 'Confirm Password',
                 ),
                 CustomTextButton(
-                  onTap: () {},
+                  onTap: () async {
+                    if (_key.currentState!.validate()) {
+                      if (_password.text.trim() ==
+                          _confirmPassword.text.trim()) {
+                        showLoadingDislog(context);
+                        FocusScope.of(context).unfocus();
+                        final User? _user =
+                            await AuthMethod().signupWithEmailAndPassword(
+                          email: _email.text,
+                          password: _password.text,
+                        );
+                        String date = DateTime.now().toString();
+                        DateTime dateparse = DateTime.parse(date);
+                        String formattedDate =
+                            '${dateparse.day}-${dateparse.month}-${dateparse.year}';
+                        AppUser _appUser = AppUser(
+                          uid: _user!.uid,
+                          name: _name.text.trim(),
+                          email: _email.text.trim(),
+                          imageURL: '',
+                        );
+                        final bool _save = await UserAPI().addUser(_appUser);
+                        if (_save) {
+                          CustomToast.successToast(
+                              message: 'Signup successfully');
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              LoginScreen.routeName,
+                              (Route<dynamic> route) => false);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      } else {
+                        CustomToast.errorToast(
+                          message:
+                              'Password and confirm password should be same',
+                        );
+                      }
+                    }
+                  },
                   text: 'Sign up',
                 )
               ],

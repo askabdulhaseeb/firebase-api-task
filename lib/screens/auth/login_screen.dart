@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../../database/aith_methods.dart';
 import '../../utilities/custom_validator.dart';
 import '../../utilities/utilities.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textformfield.dart';
 import '../../widgets/password_textformfield.dart';
+import '../../widgets/custom_toast.dart';
 import '../../widgets/show_loading.dart';
+import '../home_screen/home_screen.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -49,6 +53,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () async {
                   if (_key.currentState!.validate()) {
                     showLoadingDislog(context);
+                    final User? _user =
+                        await AuthMethod().loginWithEmailAndPassword(
+                      _email.text.trim(),
+                      _password.text.trim(),
+                    );
+                    if (_user != null) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          HomeScreen.routeName,
+                          (Route<dynamic> route) => false);
+                    } else {
+                      Navigator.of(context).pop();
+                      CustomToast.errorToast(
+                          message: 'email OR password in incorrect');
+                    }
                   }
                 },
                 text: 'Login',
