@@ -63,14 +63,56 @@ class HomeScreen extends StatelessWidget {
                   _TopicTile(
                     title: 'COVID-19',
                     subtitle:
-                        ''''The coronavirus, or COVID-19, is inciting panic for a number of reasons. It's a new virus, meaning no one has immunity''',
-                    keyword: 'COVID',
+                        ''''The coronavirus, or COVID-19, is inciting panic for a number of reasons. It's a new virus, meaning no one has immunity.''',
+                    keyword: 'covid',
                   ),
                   _TopicTile(
                     title: 'Bitcoin(₿)',
                     subtitle:
-                        'Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator',
+                        'Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator.',
                     keyword: 'bitcoin',
+                  ),
+                  _TopicTile(
+                    title: 'BBC News',
+                    subtitle:
+                        'Visit BBC News for up-to-the-minute news, breaking news, video, audio and feature stories. BBC News provides trusted World and UK news.',
+                    keyword: 'bbc',
+                  ),
+                  _TopicTile(
+                    title: 'Work From Home',
+                    keyword: 'Work From Home',
+                    subtitle:
+                        '''The Most Relevant information. 100% Privacy Protected! Find what you are looking for Here. 99% Match on Work Online From Home Uk.''',
+                  ),
+                  _TopicTile(
+                    title: 'Football',
+                    keyword: 'football',
+                    subtitle:
+                        '''Nowadays the game of football is presided over globally by FIFA, which was established in 1904 (41 years after the FA).''',
+                  ),
+                  _TopicTile(
+                    title: 'Cricket',
+                    keyword: 'cricket',
+                    subtitle:
+                        '''Official T20 World Cup website - live matches, scores, news, highlights, commentary, rankings, videos and fixtures from the International Cricket Council.''',
+                  ),
+                  _TopicTile(
+                    title: 'SpaceX',
+                    keyword: 'spacex',
+                    subtitle:
+                        '''SpaceX designs, manufactures and launches advanced rockets and spacecraft. The company was founded in 2002 to revolutionize space technology, ...''',
+                  ),
+                  _TopicTile(
+                    title: 'Google',
+                    keyword: 'google',
+                    subtitle:
+                        '''Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking ...''',
+                  ),
+                  _TopicTile(
+                    title: 'Facebook',
+                    keyword: 'facebook',
+                    subtitle:
+                        '''Keeping up with friends is faster and easier than ever. Share updates and photos, engage with friends and Pages, and stay connected to communities important ...''',
                   ),
                 ],
               ),

@@ -17,7 +17,7 @@ class _NewsScreenState extends State<NewsScreen> {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 20,
-        title: const Text('News', maxLines: 1, overflow: TextOverflow.ellipsis),
+        title: Text(widget.topic, maxLines: 1, overflow: TextOverflow.ellipsis),
         centerTitle: true,
       ),
       body: FutureBuilder<News?>(
@@ -34,12 +34,26 @@ class _NewsScreenState extends State<NewsScreen> {
               final News? _news = snapshot.data;
               return _news == null
                   ? _issueWidget()
-                  : ListView.builder(
-                      itemCount: _news.articles!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return NewsCardWidget(article: _news.articles![index]);
-                      },
-                    );
+                  : (_news.articles!.isEmpty)
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[
+                              Icon(Icons.info_outline, color: Colors.grey),
+                              Text(
+                                'No News Found',
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: _news.articles!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return NewsCardWidget(
+                                article: _news.articles![index]);
+                          },
+                        );
           }
         },
       ),
