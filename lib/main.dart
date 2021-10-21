@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (_) => const LoginScreen(),
         SignupScreen.routeName: (_) => const SignupScreen(),
         HomeScreen.routeName: (_) => const HomeScreen(),
-        NewsScreen.routeName: (_) => const NewsScreen(),
+        NewsScreen.routeName: (_) => const NewsScreen(topic: ''),
       },
     );
   }

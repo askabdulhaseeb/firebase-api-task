@@ -1,3 +1,4 @@
+import 'package:firebase_api_task/screens/news_screen/news_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_api_task/database/user_local_data.dart';
@@ -58,18 +59,18 @@ class HomeScreen extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
-                children: <Widget>[
+                children: const <Widget>[
                   _TopicTile(
                     title: 'COVID-19',
                     subtitle:
                         ''''The coronavirus, or COVID-19, is inciting panic for a number of reasons. It's a new virus, meaning no one has immunity''',
-                    onTap: () {},
+                    keyword: 'COVID',
                   ),
                   _TopicTile(
                     title: 'Bitcoin(₿)',
                     subtitle:
                         'Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator',
-                    onTap: () {},
+                    keyword: 'bitcoin',
                   ),
                 ],
               ),
@@ -85,12 +86,12 @@ class _TopicTile extends StatelessWidget {
   const _TopicTile({
     required this.title,
     required this.subtitle,
-    required this.onTap,
+    required this.keyword,
     Key? key,
   }) : super(key: key);
   final String title;
   final String subtitle;
-  final VoidCallback onTap;
+  final String keyword;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +99,13 @@ class _TopicTile extends StatelessWidget {
       elevation: 4,
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        onTap: onTap,
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<NewsScreen>(
+              builder: (BuildContext context) => NewsScreen(topic: keyword),
+            ),
+          );
+        },
         title: Text(
           title,
           maxLines: 1,

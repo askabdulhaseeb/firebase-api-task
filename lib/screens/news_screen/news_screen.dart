@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'news_card_widget.dart';
 
 class NewsScreen extends StatefulWidget {
-  const NewsScreen({Key? key}) : super(key: key);
+  const NewsScreen({required this.topic, Key? key}) : super(key: key);
   static const String routeName = '/NewsScreen';
+  final String topic;
   @override
   State<NewsScreen> createState() => _NewsScreenState();
 }
@@ -15,10 +16,12 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News'),
+        leadingWidth: 20,
+        title: const Text('News', maxLines: 1, overflow: TextOverflow.ellipsis),
+        centerTitle: true,
       ),
       body: FutureBuilder<News?>(
-        future: NewsAPI().getNews(),
+        future: NewsAPI().getNews(keyword: widget.topic),
         builder: (BuildContext context, AsyncSnapshot<News?> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
