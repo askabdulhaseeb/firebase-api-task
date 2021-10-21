@@ -16,9 +16,17 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leadingWidth: 20,
-        title: Text(widget.topic, maxLines: 1, overflow: TextOverflow.ellipsis),
+        title: Text(
+          widget.topic,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(color: Theme.of(context).primaryColor),
+        ),
         centerTitle: true,
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
       ),
       body: FutureBuilder<News?>(
         future: NewsAPI().getNews(keyword: widget.topic),
