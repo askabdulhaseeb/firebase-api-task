@@ -6,14 +6,14 @@ import 'package:firebase_api_task/widgets/show_loading.dart';
 import 'package:flutter/material.dart';
 import 'news_card_widget.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-  static const String routeName = '/HomeScreen';
+class NewsScreen extends StatefulWidget {
+  const NewsScreen({Key? key}) : super(key: key);
+  static const String routeName = '/NewsScreen';
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<NewsScreen> createState() => _NewsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

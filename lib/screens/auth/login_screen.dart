@@ -1,3 +1,4 @@
+import 'package:firebase_api_task/screens/news_screen/news_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../database/aith_methods.dart';
@@ -8,7 +9,7 @@ import '../../widgets/custom_textformfield.dart';
 import '../../widgets/password_textformfield.dart';
 import '../../widgets/custom_toast.dart';
 import '../../widgets/show_loading.dart';
-import '../home_screen/home_screen.dart';
+import '../news_screen/news_screen.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                     if (_user != null) {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          HomeScreen.routeName,
+                          NewsScreen.routeName,
                           (Route<dynamic> route) => false);
                     } else {
                       Navigator.of(context).pop();

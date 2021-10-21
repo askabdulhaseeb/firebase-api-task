@@ -112,10 +112,10 @@ class NewsDetailScreen extends StatelessWidget {
               onTap: () => Navigator.of(context).pop(),
               child: const CircleAvatar(
                 radius: 20,
-                backgroundColor: Colors.white24,
+                backgroundColor: Colors.white60,
                 child: Padding(
                   padding: EdgeInsets.only(left: 8),
-                  child: Icon(Icons.arrow_back_ios),
+                  child: Icon(Icons.arrow_back_ios, color: Colors.black54),
                 ),
               ),
             ),
