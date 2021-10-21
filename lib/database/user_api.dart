@@ -27,11 +27,9 @@ class UserAPI {
     return true;
   }
 
-  Future<String> uploadImage(File? file) async {
-    final Reference ref = FirebaseStorage.instance
-        .ref()
-        .child('usersImages')
-        .child('_fullName! ' '.jpg');
+  Future<String> uploadImage(File? file, String uid) async {
+    final Reference ref =
+        FirebaseStorage.instance.ref().child('usersImages').child(uid);
     await ref.putFile(file!);
     String url = await ref.getDownloadURL();
     return url;

@@ -22,15 +22,14 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  File? _pickedImage;
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _name = TextEditingController();
-    final TextEditingController _email = TextEditingController();
-    final TextEditingController _password = TextEditingController();
-    final TextEditingController _confirmPassword = TextEditingController();
-    final GlobalKey<FormState> _key = GlobalKey<FormState>();
-    File? _pickedImage;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -58,10 +57,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: CircleAvatar(
                           radius: 60,
                           backgroundColor: Theme.of(context).primaryColor,
-                          backgroundImage: _pickedImage != null
-                              ? Image.file(File(_pickedImage.path))
-                                  as ImageProvider
-                              : const AssetImage('images/default_user.png'),
+                          backgroundImage: _pickedImage == null
+                              ? const AssetImage('images/default_user.png')
+                              : FileImage(File(_pickedImage!.path))
+                                  as ImageProvider,
                         ),
                       ),
                     ),
@@ -119,15 +118,16 @@ class _SignupScreenState extends State<SignupScreen> {
                           email: _email.text,
                           password: _password.text,
                         );
-                        String date = DateTime.now().toString();
-                        DateTime dateparse = DateTime.parse(date);
-                        String formattedDate =
-                            '${dateparse.day}-${dateparse.month}-${dateparse.year}';
+                        String _imageURL = '';
+                        if (_pickedImage != null) {
+                          _imageURL = await UserAPI().uploadImage(
+                              File(_pickedImage!.path), _user!.uid);
+                        }
                         AppUser _appUser = AppUser(
                           uid: _user!.uid,
                           name: _name.text.trim(),
                           email: _email.text.trim(),
-                          imageURL: '',
+                          imageURL: _imageURL,
                         );
                         final bool _save = await UserAPI().addUser(_appUser);
                         if (_save) {
