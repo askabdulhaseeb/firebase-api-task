@@ -1,8 +1,5 @@
 import 'package:firebase_api_task/apis/news_api.dart';
-import 'package:firebase_api_task/database/aith_methods.dart';
 import 'package:firebase_api_task/models/news.dart';
-import 'package:firebase_api_task/screens/auth/login_screen.dart';
-import 'package:firebase_api_task/widgets/show_loading.dart';
 import 'package:flutter/material.dart';
 import 'news_card_widget.dart';
 
@@ -19,20 +16,6 @@ class _NewsScreenState extends State<NewsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('News'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              showLoadingDislog(context);
-              await AuthMethod().signOut();
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                LoginScreen.routeName,
-                // ignore: always_specify_types
-                (Route route) => false,
-              );
-            },
-            icon: const Icon(Icons.logout),
-          )
-        ],
       ),
       body: FutureBuilder<News?>(
         future: NewsAPI().getNews(),

@@ -5,6 +5,7 @@ import 'screens/auth/login_screen.dart';
 import 'screens/auth/signup_screen.dart';
 import 'database/user_local_data.dart';
 import 'screens/news_screen/news_screen.dart';
+import 'screens/home_screen/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,10 +29,11 @@ class MyApp extends StatelessWidget {
       ),
       home: (UserLocalData.getUserUID.isEmpty)
           ? const LoginScreen()
-          : const NewsScreen(),
+          : const HomeScreen(),
       routes: <String, WidgetBuilder>{
         LoginScreen.routeName: (_) => const LoginScreen(),
         SignupScreen.routeName: (_) => const SignupScreen(),
+        HomeScreen.routeName: (_) => const HomeScreen(),
         NewsScreen.routeName: (_) => const NewsScreen(),
       },
     );
