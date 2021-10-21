@@ -3,6 +3,7 @@ import 'package:firebase_api_task/screens/auth/login_screen.dart';
 import 'package:firebase_api_task/screens/news_screen/news_screen.dart';
 import 'package:firebase_api_task/utilities/utilities.dart';
 import 'package:firebase_api_task/widgets/circular_profile_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -17,16 +18,29 @@ class CustomDrawer extends StatelessWidget {
         children: <Widget>[
           SizedBox(height: Utilities.padding * 2),
           _imageSection(context),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.description_sharp, size: 36),
-            title: const Text('News'),
-            subtitle: const Text('Get updated news'),
-            onTap: () {
-              Navigator.of(context).pushNamed(NewsScreen.routeName);
-            },
+          const Divider(thickness: 0.8),
+          Center(
+            child: Text(
+              'General News',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-          const Spacer(),
+          Expanded(
+            child: ListView(
+              children: const <Widget>[
+                _NewsTile(keyword: 'today', title: 'About Today'),
+                _NewsTile(keyword: 'covid', title: 'COVID-19'),
+                _NewsTile(keyword: 'sports', title: 'Sports'),
+                _NewsTile(keyword: 'space', title: 'Space'),
+                _NewsTile(keyword: 'internet', title: 'Internet'),
+                _NewsTile(keyword: 'google', title: 'Google'),
+                _NewsTile(keyword: 'facebook', title: 'Facebook'),
+              ],
+            ),
+          ),
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),
@@ -78,6 +92,46 @@ class CustomDrawer extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _NewsTile extends StatelessWidget {
+  const _NewsTile({required this.title, required this.keyword, Key? key})
+      : super(key: key);
+  final String title;
+  final String keyword;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute<NewsScreen>(
+            builder: (BuildContext context) => NewsScreen(topic: keyword),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const Spacer(),
+            Icon(
+              CupertinoIcons.forward,
+              color: Theme.of(context).primaryColor.withOpacity(0.4),
+            ),
+          ],
+        ),
       ),
     );
   }
