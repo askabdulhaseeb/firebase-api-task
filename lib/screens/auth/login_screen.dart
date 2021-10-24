@@ -1,6 +1,7 @@
 import 'package:firebase_api_task/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import '../../database/aith_methods.dart';
 import '../../utilities/custom_validator.dart';
 import '../../utilities/utilities.dart';
@@ -22,6 +23,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  @override
+  void initState() {
+    SystemChrome.setPreferredOrientations(
+      <DeviceOrientation>[
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

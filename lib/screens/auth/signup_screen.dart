@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../models/app_user.dart';
 import '../../database/aith_methods.dart';
@@ -28,6 +29,17 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _confirmPassword = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   File? _pickedImage;
+  @override
+  void initState() {
+    SystemChrome.setPreferredOrientations(
+      <DeviceOrientation>[
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

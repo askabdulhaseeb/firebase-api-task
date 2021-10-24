@@ -18,7 +18,6 @@ class _NewsScreenState extends State<NewsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leadingWidth: 20,
         title: Text(
           widget.topic,
           maxLines: 1,

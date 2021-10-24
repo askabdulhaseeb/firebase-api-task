@@ -11,10 +11,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
   UserLocalData.init();
-  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  await SystemChrome.setPreferredOrientations(
+    <DeviceOrientation>[
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
   runApp(const MyApp());
 }
 
