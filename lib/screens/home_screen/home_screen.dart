@@ -1,6 +1,8 @@
 import 'package:firebase_api_task/database/aith_methods.dart';
 import 'package:firebase_api_task/screens/auth/login_screen.dart';
 import 'package:firebase_api_task/screens/news_screen/news_screen.dart';
+import 'package:firebase_api_task/widgets/custom_textformfield.dart';
+import 'package:firebase_api_task/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_api_task/database/user_local_data.dart';
@@ -16,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _search = TextEditingController();
   @override
   void initState() {
     SystemChrome.setPreferredOrientations(
@@ -35,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context, Orientation orientation) {
         if (orientation == Orientation.portrait) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
@@ -73,6 +77,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey,
                     ),
                   ),
+                  CustomTextFormField(
+                    title: 'Search News',
+                    controller: _search,
+                    hint: 'Write any topic to search news',
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_search.text.isEmpty) {
+                          CustomToast.errorToast(
+                            message: 'Please write something to search',
+                          );
+                          return;
+                        }
+                        Navigator.of(context).push(
+                          MaterialPageRoute<NewsScreen>(
+                            builder: (BuildContext context) => NewsScreen(
+                              topic: _search.text,
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text('Search'),
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   const Text(
                     '''Today's Topics''',
@@ -97,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
-                    children: [
+                    children: <Widget>[
                       Expanded(
                         child: RichText(
                           text: TextSpan(

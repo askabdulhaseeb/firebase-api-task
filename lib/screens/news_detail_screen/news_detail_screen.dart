@@ -69,7 +69,7 @@ class NewsDetailScreen extends StatelessWidget {
           body: Row(
             children: <Widget>[
               Stack(
-                children: [
+                children: <Widget>[
                   SizedBox(
                     width: _size.height * 0.7,
                     height: _size.height,

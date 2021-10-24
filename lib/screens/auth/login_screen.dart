@@ -60,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 autoFocus: true,
               ),
               PasswordTextFormField(controller: _password),
-              _forgetPassword(),
               CustomTextButton(
                 onTap: () async {
                   if (_key.currentState!.validate()) {
@@ -105,19 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: const Text('Sign Up'),
         ),
       ],
-    );
-  }
-
-  GestureDetector _forgetPassword() {
-    return GestureDetector(
-      onTap: () {
-        // TODO: Forget password
-      },
-      child: Container(
-        padding: const EdgeInsets.all(6),
-        alignment: Alignment.centerRight,
-        child: const Text('Forget password?'),
-      ),
     );
   }
 
