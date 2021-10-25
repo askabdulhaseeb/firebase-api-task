@@ -117,50 +117,73 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         } else {
           return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: SizedBox(
+                      height: 60,
+                      child: CustomTextFormField(
+                        title: 'Search News',
+                        controller: _search,
+                        hint: 'Write any topic to search news',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_search.text.isEmpty) {
+                        CustomToast.errorToast(
+                          message: 'Please write something to search',
+                        );
+                        return;
+                      }
+                      Navigator.of(context).push(
+                        MaterialPageRoute<NewsScreen>(
+                          builder: (BuildContext context) => NewsScreen(
+                            topic: _search.text,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Search'),
+                  ),
+                ],
+              ),
+              iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+            ),
+            drawer: const CustomDrawer(),
             body: Padding(
               padding: EdgeInsets.symmetric(
-                vertical: Utilities.padding,
+                // vertical: Utilities.padding,
                 horizontal: Utilities.padding * 2,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: RichText(
-                          text: TextSpan(
-                            children: <InlineSpan>[
-                              TextSpan(
-                                text: Utilities.getGreetingsText(),
-                                style: const TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: UserLocalData.getUserDisplayName,
-                                style: TextStyle(
-                                  fontSize: 32,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            ],
+                  RichText(
+                    text: TextSpan(
+                      children: <InlineSpan>[
+                        TextSpan(
+                          text: Utilities.getGreetingsText(),
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black,
                           ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () async {
-                          await AuthMethod().signOut();
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            LoginScreen.routeName,
-                            (Route<dynamic> route) => false,
-                          );
-                        },
-                        icon: const Icon(Icons.logout),
-                      ),
-                    ],
+                        TextSpan(
+                          text: UserLocalData.getUserDisplayName,
+                          style: TextStyle(
+                            fontSize: 32,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const Text(
                     'Welcome to our News',

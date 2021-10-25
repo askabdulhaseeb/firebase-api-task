@@ -9,11 +9,9 @@ class NewsAPI {
     final String _today = _formate.format(DateTime.now());
     final String _yesterday =
         _formate.format(DateTime.now().subtract(const Duration(days: 1)));
-    final http.Request request = http.Request(
-      'GET',
-      Uri.parse(
-          '${NewsAPILinks.baseURL}q=$keyword&from=$_yesterday&to=$_today&sortBy=popularity&apiKey=${NewsAPILinks.key}'),
-    );
+    final String _url =
+        '${NewsAPILinks.baseURL}q=$keyword&from=$_yesterday&to=$_today&sortBy=popularity&apiKey=${NewsAPILinks.key}';
+    final http.Request request = http.Request('GET', Uri.parse(_url));
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       final String respStr = await response.stream.bytesToString();
