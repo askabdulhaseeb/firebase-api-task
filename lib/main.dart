@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/signup_screen.dart';
 import 'database/user_local_data.dart';
+import 'screens/news_screen/news_screen.dart';
 import 'screens/home_screen/home_screen.dart';
 
 Future<void> main() async {
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (_) => const LoginScreen(),
         SignupScreen.routeName: (_) => const SignupScreen(),
         HomeScreen.routeName: (_) => const HomeScreen(),
+        NewsScreen.routeName: (_) => const NewsScreen(topic: ''),
       },
     );
   }
