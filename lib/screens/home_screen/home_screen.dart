@@ -1,4 +1,3 @@
-import 'package:firebase_api_task/screens/news_screen/news_screen.dart';
 import 'package:firebase_api_task/widgets/custom_textformfield.dart';
 import 'package:firebase_api_task/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
@@ -88,13 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                           return;
                         }
-                        Navigator.of(context).push(
-                          MaterialPageRoute<NewsScreen>(
-                            builder: (BuildContext context) => NewsScreen(
-                              topic: _search.text,
-                            ),
-                          ),
-                        );
                       },
                       child: const Text('Search'),
                     ),
@@ -138,13 +130,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                         return;
                       }
-                      Navigator.of(context).push(
-                        MaterialPageRoute<NewsScreen>(
-                          builder: (BuildContext context) => NewsScreen(
-                            topic: _search.text,
-                          ),
-                        ),
-                      );
                     },
                     child: const Text('Search'),
                   ),
@@ -293,11 +278,6 @@ class _TopicTile extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<NewsScreen>(
-              builder: (BuildContext context) => NewsScreen(topic: keyword),
-            ),
-          );
         },
         title: Text(
           title,

@@ -1,7 +1,6 @@
 import 'package:firebase_api_task/database/aith_methods.dart';
 import 'package:firebase_api_task/database/user_local_data.dart';
 import 'package:firebase_api_task/screens/auth/login_screen.dart';
-import 'package:firebase_api_task/screens/news_screen/news_screen.dart';
 import 'package:firebase_api_task/utilities/utilities.dart';
 import 'package:firebase_api_task/widgets/circular_profile_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -109,11 +108,6 @@ class _NewsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute<NewsScreen>(
-            builder: (BuildContext context) => NewsScreen(topic: keyword),
-          ),
-        );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
