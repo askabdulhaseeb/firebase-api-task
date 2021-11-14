@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Text('''Don't have a account? '''),
+        const Text('''Don't have a account?'''),
         TextButton(
           onPressed: () {
             Navigator.of(context).pushNamed(SignupScreen.routeName);

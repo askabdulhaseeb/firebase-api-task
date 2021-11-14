@@ -1,10 +1,7 @@
-import 'package:firebase_api_task/database/aith_methods.dart';
-import 'package:firebase_api_task/screens/auth/login_screen.dart';
 import 'package:firebase_api_task/screens/news_screen/news_screen.dart';
 import 'package:firebase_api_task/widgets/custom_textformfield.dart';
 import 'package:firebase_api_task/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_api_task/database/user_local_data.dart';
 import 'package:firebase_api_task/utilities/utilities.dart';
 import 'package:firebase_api_task/widgets/custom_drawer.dart';
