@@ -1,19 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import '../../models/app_user.dart';
-import '../../database/aith_methods.dart';
-import '../../database/user_api.dart';
 import '../../utilities/custom_validator.dart';
 import '../../utilities/utilities.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textformfield.dart';
 import '../../widgets/password_textformfield.dart';
-import '../../widgets/show_loading.dart';
-import '../../widgets/custom_toast.dart';
-import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -28,17 +18,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-  File? _pickedImage;
-  @override
-  void initState() {
-    SystemChrome.setPreferredOrientations(
-      <DeviceOrientation>[
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ],
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +46,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         backgroundColor:
                             Theme.of(context).scaffoldBackgroundColor,
                         child: CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Theme.of(context).primaryColor,
-                          backgroundImage: _pickedImage == null
-                              ? const AssetImage('images/default_user.png')
-                              : FileImage(File(_pickedImage!.path))
-                                  as ImageProvider,
-                        ),
+                            radius: 60,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            backgroundImage:
+                                const AssetImage('images/default_user.png')),
                       ),
                     ),
                     Positioned(
@@ -81,15 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       right: -6,
                       child: IconButton(
                         tooltip: 'Edit Image',
-                        onPressed: () async {
-                          final ImagePicker picker = ImagePicker();
-                          final XFile? pickedImage = await picker.pickImage(
-                            source: ImageSource.gallery,
-                          );
-                          final File pickedImageFile = File(pickedImage!.path);
-                          _pickedImage = pickedImageFile;
-                          setState(() {});
-                        },
+                        onPressed: () async {},
                         icon: Icon(
                           Icons.edit,
                           size: 40,
@@ -120,44 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 CustomTextButton(
                   onTap: () async {
-                    if (_key.currentState!.validate()) {
-                      if (_password.text.trim() ==
-                          _confirmPassword.text.trim()) {
-                        showLoadingDislog(context);
-                        FocusScope.of(context).unfocus();
-                        final User? _user =
-                            await AuthMethod().signupWithEmailAndPassword(
-                          email: _email.text,
-                          password: _password.text,
-                        );
-                        String _imageURL = '';
-                        if (_pickedImage != null) {
-                          _imageURL = await UserAPI().uploadImage(
-                              File(_pickedImage!.path), _user!.uid);
-                        }
-                        AppUser _appUser = AppUser(
-                          uid: _user!.uid,
-                          name: _name.text.trim(),
-                          email: _email.text.trim(),
-                          imageURL: _imageURL,
-                        );
-                        final bool _save = await UserAPI().addUser(_appUser);
-                        if (_save) {
-                          CustomToast.successToast(
-                              message: 'Signup successfully');
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              LoginScreen.routeName,
-                              (Route<dynamic> route) => false);
-                        } else {
-                          Navigator.of(context).pop();
-                        }
-                      } else {
-                        CustomToast.errorToast(
-                          message:
-                              'Password and confirm password should be same',
-                        );
-                      }
-                    }
+                    Navigator.of(context).pop();
                   },
                   text: 'Sign up',
                 )
